@@ -40,8 +40,8 @@ The model uses the following input features:
 
 ## 🚀 App Demo
 
-Try it live on **Streamlit Cloud**:  
-🔗 [Click Here to Launch App](https://your-streamlit-app-link)
+Try it live on   
+🔗 [Click Here to Launch App](https://cautious-trout-9775g97vrp75f74p5-8501.app.github.dev/)
 
 ---
 
