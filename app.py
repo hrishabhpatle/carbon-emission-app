@@ -23,9 +23,9 @@ new_clothes = st.number_input("How Many New Clothes Monthly", value=1)
 # Categorical features
 diet = st.selectbox("Diet", ["omnivore", "vegetarian", "vegan"])
 transport = st.selectbox("Transport", ["public", "walk/bicycle", "private"])
-body_type = st.selectbox("Body Type", ["normal", "obese", "overweight", "underweight"])
+ 
 sex = st.selectbox("Sex", ["male", "female"])
-recycling = st.multiselect("Recycling Habits", ["Paper", "Plastic", "Glass", "Metal"])
+ 
 
 if st.button("Predict"):
     # Create a dataframe with all expected columns
@@ -43,10 +43,7 @@ if st.button("Predict"):
     input_data[f"Diet_encoded"] = 1 if diet == "vegetarian" else (2 if diet == "vegan" else 0)
     input_data[f"Transport_{transport}"] = 1
     input_data[f"Sex_{sex}"] = 1
-    input_data[f"Body Type_{body_type}"] = 1
-    
-    for item in recycling:
-        input_data[f"Recycling_{item}"] = 1
+ 
     
     # Make prediction
     prediction = model.predict(input_data)
