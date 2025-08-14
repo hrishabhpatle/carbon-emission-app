@@ -1,36 +1,31 @@
-# Updated Streamlit app with all required features
 import streamlit as st
 import pandas as pd
-from sklearn.linear_model import LinearRegression
+import pickle
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 # Load model
 with open('carbon_model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 st.title("🌍 Carbon Emission Predictor")
 
-# Create input fields for ALL required features
-# Numerical features
-monthly_grocery = st.number_input("Monthly Grocery Bill", value=1000)
-vehicle_distance = st.number_input("Vehicle Monthly Distance (Km)", value=0)
-waste_bag = st.number_input("Waste Bag Weekly Count", value=1)
-tv_hours = st.number_input("TV/PC Usage (hrs/day)", value=2)
-internet_hours = st.number_input("Internet Usage (hrs/day)", value=3)
-new_clothes = st.number_input("How Many New Clothes Monthly", value=1)
+# Numerical Inputs
+monthly_grocery = st.number_input("Monthly Grocery Bill", value=1000.0)
+vehicle_distance = st.number_input("Vehicle Monthly Distance (Km)", value=0.0)
+waste_bag = st.number_input("Waste Bag Weekly Count", value=1.0)
+tv_hours = st.number_input("TV/PC Usage (hrs/day)", value=2.0)
+internet_hours = st.number_input("Internet Usage (hrs/day)", value=3.0)
+new_clothes = st.number_input("How Many New Clothes Monthly", value=1.0)
 
-# Categorical features
+# Categorical Inputs
 diet = st.selectbox("Diet", ["omnivore", "vegetarian", "vegan"])
-transport = st.selectbox("Transport", ["public", "walk/bicycle", "private"])
- 
+transport = st.selectbox("Transport", ["public", "walk_bicycle", "private"])  # replace slash with underscore
 sex = st.selectbox("Sex", ["male", "female"])
- 
 
 if st.button("Predict"):
-    # Create a dataframe with all expected columns
+    # Create dataframe with all model features set to 0
     input_data = pd.DataFrame(0, index=[0], columns=model.feature_names_in_)
-    
+
     # Fill numerical features
     input_data["Monthly Grocery Bill"] = monthly_grocery
     input_data["Vehicle Monthly Distance Km"] = vehicle_distance
@@ -38,13 +33,16 @@ if st.button("Predict"):
     input_data["How Long TV PC Daily Hour"] = tv_hours
     input_data["How Long Internet Daily Hour"] = internet_hours
     input_data["How Many New Clothes Monthly"] = new_clothes
-    
-    # Fill categorical features
-    input_data[f"Diet_encoded"] = 1 if diet == "vegetarian" else (2 if diet == "vegan" else 0)
-    input_data[f"Transport_{transport}"] = 1
-    input_data[f"Sex_{sex}"] = 1
- 
-    
-    # Make prediction
-    prediction = model.predict(input_data)
-    st.success(f"Estimated Carbon Emission: {prediction[0]:.2f} kg CO₂/month")
+
+    # One-hot encode categorical features if they exist in model's features
+    diet_col = f"Diet_{diet}"
+    transport_col = f"Transport_{transport}"
+    sex_col = f"Sex_{sex}"
+
+    for col in [diet_col, transport_col, sex_col]:
+        if col in input_data.columns:
+            input_data[col] = 1
+
+    # Prediction
+    prediction = model.predict(input_data)[0]
+    st.success(f"Estimated Carbon Emission: {prediction:.2f} kg CO₂/month")
