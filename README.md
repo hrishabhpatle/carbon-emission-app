@@ -2,7 +2,8 @@
 
 This project is a **Machine Learning web application** built using **Streamlit** that predicts a person's carbon emissions based on their lifestyle and consumption habits. It uses a **Linear Regression** model trained on various features such as diet, transport methods, energy sources, and more.
 
----
+---🔗 [Click Here to Launch App](https://carbon-emission-app-atjebhoqjte6tew9y8ubft.streamlit.app/)
+
 
 ## 📌 Project Overview
 
@@ -41,7 +42,7 @@ The model uses the following input features:
 ## 🚀 App Demo
 
 Try it live on   
-🔗 [Click Here to Launch App](https://cautious-trout-9775g97vrp75f74p5-8501.app.github.dev/)
+🔗 [Click Here to Launch App](https://carbon-emission-app-atjebhoqjte6tew9y8ubft.streamlit.app/)
 
 ---
 
