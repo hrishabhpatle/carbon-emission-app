@@ -102,8 +102,7 @@ Hrishabh Patle
 📧hrishabh07patle@gmail.com
 🔗 GitHub
 
-📜 License
-This project is licensed under the MIT License.
+ 
  
 ---
 
